@@ -1,9 +1,10 @@
 package vegas.render
 
 import vegas.macros.ShowRenderMacros
-import scala.language.experimental.macros
 
+import scala.language.experimental.macros
 import vegas.DSL.SpecBuilder
+import vegas.Theme
 
 trait ShowRender extends (SpecBuilder => Unit)
 
@@ -16,5 +17,5 @@ object ShowRender {
 }
 
 case class ShowHTML(output: String => Unit) extends ShowRender {
-  def apply(sb: SpecBuilder): Unit = output(StaticHTMLRenderer(sb.toJson).frameHTML())
+  def apply(sb: SpecBuilder): Unit = output(StaticHTMLRenderer(sb.toJson,Theme.Default).frameHTML())
 }

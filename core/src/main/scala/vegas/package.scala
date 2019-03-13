@@ -66,7 +66,7 @@ package object vegas {
   val StackOffset = Spec.StackOffsetEnums
   val MarkOrient = Spec.OrientEnums
   val Interpolate = Spec.InterpolateEnums
-  val HorizontalAlign =  Spec.HorizontalAlignEnums
+  val HorizontalAlign = Spec.HorizontalAlignEnums
   val VerticalAlign = Spec.VerticalAlignEnums
   val Shape = Spec.ShapeEnums
   val FontStyle = Spec.FontStyleEnums
@@ -79,4 +79,8 @@ package object vegas {
   val CellConfig = vegas.DSL.CellConfigDSL
   val MarkConfig = vegas.DSL.MarkConfigDSL
 
+  object Theme extends Enumeration {
+    type Theme = Value
+    val Default, Excel, GGPlot2, Quartz, Vox, Dark, FiveThirtyEight = Value
+  }
 }

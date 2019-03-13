@@ -84,8 +84,8 @@ lazy val circeVersion = "0.7.0"
 lazy val commonSettings = Seq(
   description := "The missing matplotlib for Scala and Spark",
   organization := "org.vegas-viz",
-  crossScalaVersions := Seq("2.11.8", "2.12.4"),
-  scalaVersion := "2.11.8",
+  crossScalaVersions := Seq("2.11.8", "2.12.8"),
+  scalaVersion := "2.12.8",
   vegaLiteVersion := "1.2.0",
   scalacOptions ++= Seq("-target:jvm-1.7", "-Ywarn-unused-import"),
   homepage := Some(url("http://vegas-viz.org")),
@@ -220,43 +220,43 @@ lazy val vegas = project.in(file("core")).
 
 // https://stackoverflow.com/questions/48653876/aggregate-different-modules-based-on-scala-binary-version
 
-lazy val spark = project.
-  settings(moduleName := "vegas-spark").
-  dependsOn(vegas % "compile->compile; test->test").
-  settings(commonSettings: _*).
-  settings(
-    libraryDependencies ++= Seq(
-      "org.apache.spark" %% "spark-sql" % "[2.0,)" % "provided"
-    )
-  ).
-  // remove spark dep and skip compile if version is 2.12
-  settings(
-    libraryDependencies := (if (scalaBinaryVersion.value == "2.12") Seq.empty
-      else libraryDependencies.value),
-    skip in compile := scalaBinaryVersion.value == "2.12",
-    skip in publish := scalaBinaryVersion.value == "2.12"
-  )
+//lazy val spark = project.
+//  settings(moduleName := "vegas-spark").
+//  dependsOn(vegas % "compile->compile; test->test").
+//  settings(commonSettings: _*).
+//  settings(
+//    libraryDependencies ++= Seq(
+//      "org.apache.spark" %% "spark-sql" % "[2.0,)" % "provided"
+//    )
+//  ).
+//  // remove spark dep and skip compile if version is 2.12
+//  settings(
+//    libraryDependencies := (if (scalaBinaryVersion.value == "2.12") Seq.empty
+//      else libraryDependencies.value),
+//    skip in compile := scalaBinaryVersion.value == "2.12",
+//    skip in publish := scalaBinaryVersion.value == "2.12"
+//  )
 
 
-lazy val flink = project.
-  settings(moduleName := "vegas-flink").
-  dependsOn(vegas).
-  settings(commonSettings: _*).
-  settings(
-    libraryDependencies ++= Seq(
-      "org.apache.flink" %% "flink-scala" % "[1.1.1,)" % "provided",
-      "org.apache.flink" %% "flink-clients" % "[1.1.1,)" % "provided"
-    )
-  ).
-  settings(
-    libraryDependencies := (if (scalaBinaryVersion.value == "2.12") Seq.empty
-      else libraryDependencies.value),
-    skip in compile := scalaBinaryVersion.value == "2.12",
-    skip in publish := scalaBinaryVersion.value == "2.12"
-  )
+//lazy val flink = project.
+//  settings(moduleName := "vegas-flink").
+//  dependsOn(vegas).
+//  settings(commonSettings: _*).
+//  settings(
+//    libraryDependencies ++= Seq(
+//      "org.apache.flink" %% "flink-scala" % "[1.1.1,)" % "provided",
+//      "org.apache.flink" %% "flink-clients" % "[1.1.1,)" % "provided"
+//    )
+//  ).
+//  settings(
+//    libraryDependencies := (if (scalaBinaryVersion.value == "2.12") Seq.empty
+//      else libraryDependencies.value),
+//    skip in compile := scalaBinaryVersion.value == "2.12",
+//    skip in publish := scalaBinaryVersion.value == "2.12"
+//  )
 
 lazy val root = (project in file(".")).
-  aggregate(vegas, spark, flink, macros).
+  aggregate(vegas, macros).
   settings(commonSettings: _*).
   settings(noPublishSettings: _*)
 

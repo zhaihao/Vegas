@@ -7,8 +7,8 @@ import scalafx.scene.Scene
 import scalafx.stage.Stage
 import scalafx.scene.web.WebView
 import javafx.embed.swing.JFXPanel
-
 import com.sun.javafx.webkit.WebConsoleListener
+import vegas.Theme
 
 import scala.collection.mutable
 
@@ -20,7 +20,7 @@ class Window {
   val webView = new WebView {}
   private val webEngine = webView.engine
 
-  private def html(specJson: String) = StaticHTMLRenderer(specJson).pageHTML()
+  private def html(specJson: String) = StaticHTMLRenderer(specJson, Theme.Default).pageHTML()
 
   def close = stage.close
 
